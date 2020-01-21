@@ -1,6 +1,34 @@
 package main
 
+var KEYMAP_FUNC = map[string]string{
+	"LSFT(":   "(S)",
+	"RSFT(":   "(S)",
+	"LCTL(":   "(C)",
+	"RCTL(":   "(C)",
+	"LSFT_T(": "(S)",
+	"DF(":     "(d.l.)",
+}
+
 var KEYMAP = map[string]string{
+
+	"KC_TRNS": "PreLayer",
+
+	"RESET":    "reset",
+	"RGB_TOG":  "color",
+	"EEP_RST":  "EEPreset",
+	"RGB_MOD":  "c mode",
+	"RGB_RMOD": "c rmod",
+	"RGB_SPI":  "c sp+",
+	"RGB_SPD":  "c spd",
+	"RGB_VAI":  "c va+",
+	"RGB_VAD":  "c va-",
+	"RGB_HUI":  "c hu+",
+	"RGB_HUD":  "c hu-",
+	"RGB_SAI":  "c sa+ ",
+	"RGB_SAD":  "c sa-",
+	"AG_NORM":  "ag norm",
+	"AG_SWAP":  "ag swap",
+
 	// JP {{{
 	"JP_ZHTG":  "半/全",
 	"JP_YEN":   "\\ / |",

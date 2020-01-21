@@ -73,7 +73,7 @@ func read(in string) { // {{{
 			for k := 0; k < ColumnNum; k++ {
 				t := &keymap[i][j][k]
 				if j < 3 && (k == 6 || k == 7) {
-					// helix にないキー
+					// helix にキーがない場所
 					*t = "xx"
 				} else {
 					*t = keys[count]
@@ -81,44 +81,18 @@ func read(in string) { // {{{
 				}
 				// main processing
 				// LSFT() とかの処理
-				if strings.Contains(*t, "LSFT(") {
-					tmp := (*t)[5:len(*t)]
-					if _, ok := KEYMAP[tmp]; ok {
-						tmp = KEYMAP[tmp]
+				for k, v := range KEYMAP_FUNC {
+					if strings.Contains(*t, k) {
+						tmp := (*t)[len(k):len(*t)]
+						if _, ok := KEYMAP[tmp]; ok {
+							tmp = KEYMAP[tmp]
+						}
+						// LSFT(KC_1)とかを(S)1に変える
+						*t = v + tmp
 					}
-					*t = "(S)" + tmp
-				}
-				if strings.Contains(*t, "RSFT(") {
-					tmp := (*t)[5:len(*t)]
-					if _, ok := KEYMAP[tmp]; ok {
-						tmp = KEYMAP[tmp]
-					}
-					*t = "(S)" + tmp
-				}
-				if strings.Contains(*t, "LCTL(") {
-					tmp := (*t)[5:len(*t)]
-					if _, ok := KEYMAP[tmp]; ok {
-						tmp = KEYMAP[tmp]
-					}
-					*t = "(C)" + tmp
-				}
-				if strings.Contains(*t, "RCTL(") {
-					tmp := (*t)[5:len(*t)]
-					if _, ok := KEYMAP[tmp]; ok {
-						tmp = KEYMAP[tmp]
-					}
-					*t = "(C)" + tmp
-				}
-				// LSFT_T(KC_A)
-				if strings.Contains(*t, "LSFT_T(") {
-					tmp := (*t)[7:len(*t)]
-					if _, ok := KEYMAP[tmp]; ok {
-						tmp = KEYMAP[tmp]
-					}
-					*t = "(S)" + tmp
 				}
 				if strings.Contains(*t, "LT(") {
-					// LT( 5, KC_NO ) とかは LT(5とKC_NOに別れる
+					// LT( 5, KC_NO ) とかは LT(5と KC_NOに別れる
 					// 半角空白やコンマは入らない
 					layerNum := (*t)[3:len(*t)]
 					tmp := keys[count]
