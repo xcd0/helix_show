@@ -15,7 +15,6 @@ keymapの
 の6個が使えない
 5 * 14 - 6 = 64
 */
-
 const (
 	RowNum    = 5
 	ColumnNum = 14
@@ -31,9 +30,7 @@ func main() {
 	read(input)
 }
 
-// {{{
-
-func read(in string) {
+func read(in string) { // {{{
 	// 前処理
 	c := cut(in)            // 不要部分削除
 	layers := divNewLine(c) // レイヤーごとに改行で分割
@@ -136,6 +133,8 @@ func newLayer(numRow, numColumn int) [][]string {
 	}
 	return rs
 }
+
+//}}}}
 
 var input = `
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -478,5 +477,3 @@ var KEYMAP = map[string]string{
 	"KC_BRID":                  "Bri Down",
 	"KC_NO":                    "---",
 }
-
-//}}}}
