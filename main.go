@@ -76,6 +76,11 @@ func main() {
 		}
 		defer outputFile.Close()
 		outputFile.Write(([]byte)(*createdHeader))
+
+		c := cutHeader(*createdHeader)
+		layers := divNewLine(c) // レイヤーごとに改行で分割
+		output := readHeader(&layers)
+		fmt.Println(*output)
 	case ".h":
 		input := readText(arg)
 		c := cutHeader(input)   // 不要部分削除 前後と半角空白や括弧閉じなど
