@@ -55,6 +55,10 @@ func main() {
 		input := readText(arg)
 		createdHeader := readJson(input)
 
+		c := cutHeader(*createdHeader)
+		layers := divNewLine(c) // レイヤーごとに改行で分割
+		output := readHeader(&layers)
+
 		outputName := filepath.Base(apath[:len(apath)-5] + ".h")
 		outputFilePath := filepath.Join(outputDir, outputName)
 		var outputFile *os.File
@@ -75,17 +79,17 @@ func main() {
 			log.Println("       : 別ファイル名で保存します。")
 		}
 		defer outputFile.Close()
-		outputFile.Write(([]byte)(*createdHeader))
+		outputFile.Write(([]byte)(*output))
 
-		c := cutHeader(*createdHeader)
-		layers := divNewLine(c) // レイヤーごとに改行で分割
-		output := readHeader(&layers)
-		fmt.Println(*output)
+		//fmt.Println(*output)
 	case ".h":
 		input := readText(arg)
 		c := cutHeader(input)   // 不要部分削除 前後と半角空白や括弧閉じなど
 		layers := divNewLine(c) // レイヤーごとに改行で分割
 		output := readHeader(&layers)
+
+		// もともとheaderファイルが入力された場合標準出力に出力するだけにする。
+		// jsonの時はheaderファイルを生成するのでいいかんじに埋め込む
 		fmt.Println(*output)
 	default:
 		log.Fatalf("Error: 拡張子 %s が不正です。", ext)
