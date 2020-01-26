@@ -1,5 +1,7 @@
 
-
+*.exe
+helix_show
+helix_show.exe
 
 
 *~
