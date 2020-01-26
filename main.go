@@ -53,9 +53,11 @@ func main() {
 	switch ext {
 	case ".json":
 		input := readText(arg)
+		// .jsonから.hを生成
 		createdHeader := readJson(input)
 
-		c := cutHeader(*createdHeader)
+		c := cutHeader(*createdHeader) // )とか残す
+		delFinParen(*createdHeader)
 		layers := divNewLine(c) // レイヤーごとに改行で分割
 		output := readHeader(&layers)
 
@@ -63,6 +65,13 @@ func main() {
 		outputFilePath := filepath.Join(outputDir, outputName)
 		var outputFile *os.File
 		var err error
+
+		// 既存にファイルがあったら削除
+		if _, err := os.Stat(outputFilePath); err == nil {
+			if err := os.Remove(outputFilePath); err != nil {
+				log.Println(err)
+			}
+		}
 		outputFile, err = os.OpenFile(outputFilePath, os.O_WRONLY|os.O_CREATE, 0644)
 		if err != nil {
 			// Openエラー処理
@@ -107,7 +116,8 @@ func readHeader(layers *[]string) *string { // {{{
 	for i := 0; i < layerNum; i++ {
 		count := 0 // keysをいい感じに参照するためのカウンタ helixキーボードにないところを飛ばす
 		for j := 0; j < rowNum; j++ {
-			keys := strings.Split((*layers)[i], ",") // コンマで分割する これでレイヤー1層分のキーコードが入る
+			layersNP := delFinParen((*layers)[i]) // ここでは使わない)を削除する
+			keys := strings.Split(layersNP, ",")  // コンマで分割する これでレイヤー1層分のキーコードが入る
 			for k := 0; k < columnNum; k++ {
 				// 一文字づつ
 				t := &keymap[i][j][k] // ここに保存する
@@ -138,7 +148,7 @@ func readHeader(layers *[]string) *string { // {{{
 					if _, ok := KEYMAP[keys[count]]; ok {
 						tmp = KEYMAP[keys[count]]
 					}
-					*t = "LT" + l + "," + tmp
+					*t = "LT" + l + "," + delFinParen(tmp)
 					count++
 				}
 				if _, ok := KEYMAP[*t]; ok {
@@ -200,9 +210,9 @@ func readHeader(layers *[]string) *string { // {{{
 		output += "\t*/\n"
 		// ここに元のレイヤーの記述を書く
 		if i != rowNum-1 {
-			output += fmt.Sprintf("\t[%d] = LAYOUT(%s),\n", i, (*layers)[i])
+			output += fmt.Sprintf("\t[%d] = LAYOUT(%s\n", i, (*layers)[i])
 		} else {
-			output += fmt.Sprintf("\t[%d] = LAYOUT(%s)\n", i, (*layers)[i])
+			output += fmt.Sprintf("\t[%d] = LAYOUT(%s\n", i, (*layers)[i])
 		}
 		output += "\n"
 	}
@@ -313,10 +323,10 @@ func cutHeader(in string) string { // {{{2
 		}
 		if flag {
 			switch r {
-			case ' ': // 捨てる
-				continue
-			case ')': // 捨てる
-				continue
+			case ' ':
+				continue // 捨てる
+			//case ')': delFinParenで別に削除することにした
+			//	continue // 捨てる
 			case '}': // 捨てる
 				return out[:len(out)-1]
 			default:
@@ -326,6 +336,23 @@ func cutHeader(in string) string { // {{{2
 		pre = r
 	}
 	return out[:len(out)-1]
+} // }}}2
+
+func delFinParen(in string) string { // {{{2
+
+	fmt.Println(in)
+	// flag == trueの時 ) を残す
+	rs := []rune(in)
+	out := ""
+	for _, r := range rs {
+		switch r {
+		case ')':
+			continue // 捨てる
+		default:
+			out += string(r)
+		}
+	}
+	return out
 } // }}}2
 
 func newLayer(numRow, numColumn int) [][]string { // {{{2

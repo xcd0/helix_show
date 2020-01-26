@@ -11,7 +11,7 @@ for i in $dir; do
 	cp -rf  $SCRIPT_DIR/$tmp ../qmk_firmware/keyboards/helix/rev2/keymaps/$tmp
 done
 
-build=yj3
+build=yj5
 
 cd ../qmk_firmware
 
