@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -9,8 +8,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
-	"github.com/bitly/go-simplejson"
 	"github.com/xcd0/go-nkf"
 )
 
@@ -25,8 +24,10 @@ keymapの
 // }}}
 
 const (
-	RowNum    = 5
-	ColumnNum = 14
+	rowNum      = 5  // 行数
+	columnNum   = 14 // 列数
+	maxLayerNum = 16 // レイヤーの最大数
+	keyNum      = 64 // キーの数 rowNum * columnNum - 無効なキーの数
 )
 
 func hasKey(j, k int) bool {
@@ -37,92 +38,70 @@ func hasKey(j, k int) bool {
 	return true
 }
 
-var LayerNum int
-
 var keymap [][][]string
 
 func main() {
 	log.SetFlags(log.Llongfile)
 	flag.Parse()
+	if flag.NArg() == 0 {
+		log.Fatal("エラー : 引数が与えられていません。")
+	}
 	arg := flag.Arg(0)
+	apath, _ := filepath.Abs(flag.Arg(0))
+	outputDir := filepath.Dir(apath)
 	ext := filepath.Ext(arg)
 	switch ext {
 	case ".json":
-		readJson(arg)
-	case ".h":
+		input := readText(arg)
+		createdHeader := readJson(input)
 
+		outputName := filepath.Base(apath[:len(apath)-5] + ".h")
+		outputFilePath := filepath.Join(outputDir, outputName)
+		var outputFile *os.File
+		var err error
+		outputFile, err = os.OpenFile(outputFilePath, os.O_WRONLY|os.O_CREATE, 0644)
+		if err != nil {
+			// Openエラー処理
+			log.Println("エラー : 出力先ファイルが開けません。")
+			log.Println("       : 他のプログラムでファイルを開いていませんか？")
+
+			t := time.Now().Local()
+			outputName = filepath.Base(apath) + "_" + fmt.Sprintf(t.Format("2006-01-02-15-04-05")) + ".h"
+			outputFilePath = filepath.Join(outputDir, outputName)
+			outputFile, err = os.OpenFile(outputFilePath, os.O_WRONLY|os.O_CREATE, 0644)
+			if err != nil {
+				log.Fatal(fmt.Sprintf("エラーメッセージ : %v\nエラー終了します。\n", err))
+			}
+			log.Println("       : 別ファイル名で保存します。")
+		}
+		defer outputFile.Close()
+		outputFile.Write(([]byte)(*createdHeader))
+	case ".h":
 		input := readText(arg)
 		c := cutHeader(input)   // 不要部分削除 前後と半角空白や括弧閉じなど
 		layers := divNewLine(c) // レイヤーごとに改行で分割
-		readHeader(&layers)
+		output := readHeader(&layers)
+		fmt.Println(*output)
 	default:
-		fmt.Println(ext)
+		log.Fatalf("Error: 拡張子 %s が不正です。", ext)
 	}
-	printKeymap()
 }
 
-func printKeymap() { // {{{
-	fmt.Println("/*")
-	for i := 0; i < LayerNum; i++ {
-		fmt.Printf("layer %v\n", i)
-		fmt.Println("|--------+--------+--------+--------+--------+--------+        +        +--------+--------+--------+--------+--------+--------|")
-		for j := 0; j < RowNum; j++ {
-			for k := 0; k < ColumnNum; k++ {
-				if j < 3 && k == 7 {
-					fmt.Printf(" ")
-				} else {
-					fmt.Printf("|")
-				}
-				if j < 3 && (k == 6 || k == 7) {
-					// helixにない場所
-					fmt.Printf("        ")
-				} else {
-					//fmt.Printf(" %8v ", keymap[i][j][k])
-					num := len(keymap[i][j][k])
-					// m + num + n = 8にする
-					// numが6文字ならm=1,n=1
-					// numが5文字ならm=1,n=2
-					m := (8 - num) / 2
-					n := 8 - m - num
-					for l := 0; l < m; l++ {
-						fmt.Printf(" ")
-					}
-					fmt.Printf("%v", keymap[i][j][k])
-					for l := 0; l < n; l++ {
-						fmt.Printf(" ")
-					}
-				}
-				if k == ColumnNum-1 {
-					fmt.Printf("|\n")
-					if j < 2 {
-						fmt.Println("|--------+--------+--------+--------+--------+--------+        +        +--------+--------+--------+--------+--------+--------|")
-					} else {
-						fmt.Println("|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|")
-					}
-				}
-			}
-		}
-		//fmt.Println("+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+")
-		fmt.Printf("\n")
-	}
-	fmt.Println("*/")
-} // }}}
-
-func readHeader(layers *[]string) { // {{{
+func readHeader(layers *[]string) *string { // {{{
 	// keymap保存場所を作る
-	LayerNum = len(*layers)
-	keymap = make([][][]string, LayerNum)
-	for i := 0; i < LayerNum; i++ {
-		keymap[i] = newLayer(RowNum, ColumnNum)
+	layerNum := len(*layers)
+	keymap = make([][][]string, layerNum)
+	for i := 0; i < layerNum; i++ {
+		keymap[i] = newLayer(rowNum, columnNum)
 	}
 
 	// つめる
-	for i := 0; i < LayerNum; i++ {
+	for i := 0; i < layerNum; i++ {
 		// keysをいい感じに参照するためのカウンタ
 		count := 0
-		for j := 0; j < RowNum; j++ {
+		for j := 0; j < rowNum; j++ {
 			keys := strings.Split((*layers)[i], ",")
-			for k := 0; k < ColumnNum; k++ {
+			for k := 0; k < columnNum; k++ {
 				t := &keymap[i][j][k]
 				if j < 3 && (k == 6 || k == 7) {
 					// helix にキーがない場所
@@ -146,14 +125,14 @@ func readHeader(layers *[]string) { // {{{
 				if strings.Contains(*t, "LT(") {
 					// LT( 5, KC_NO ) とかは LT(5と KC_NOに別れる
 					// 半角空白やコンマは入らない
-					layerNum := (*t)[3:len(*t)]
+					l := (*t)[3:len(*t)]
 					tmp := keys[count]
 					// これでtmpに数値だけ入る
 					// keys[count]が次のキーコードになる
 					if _, ok := KEYMAP[keys[count]]; ok {
 						tmp = KEYMAP[keys[count]]
 					}
-					*t = "LT" + layerNum + "," + tmp
+					*t = "LT" + l + "," + tmp
 					count++
 				}
 				if _, ok := KEYMAP[*t]; ok {
@@ -163,135 +142,122 @@ func readHeader(layers *[]string) { // {{{
 			}
 		}
 	}
+
+	output := "/*"
+	for i := 0; i < layerNum; i++ {
+		output += fmt.Sprintf("layer %v\n", i)
+		output += "+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+\n"
+		for j := 0; j < rowNum; j++ {
+			for k := 0; k < columnNum; k++ {
+				if j < 3 && k == 7 {
+					output += " "
+				} else {
+					output += "|"
+				}
+				if j < 3 && (k == 6 || k == 7) {
+					// helixにない場所
+					output += "         "
+				} else {
+					//fmt.Printf(" %8v ", keymap[i][j][k])
+					num := len(keymap[i][j][k])
+					// m + num + n = 9にする
+					// numが6文字ならm=1,n=1
+					// numが5文字ならm=1,n=2
+					m := (9 - num) / 2
+					n := 9 - m - num
+					for l := 0; l < m; l++ {
+						output += " "
+					}
+					output += fmt.Sprintf("%v", keymap[i][j][k])
+					for l := 0; l < n; l++ {
+						output += " "
+					}
+				}
+				if k == columnNum-1 {
+					output += "|\n"
+					if j < 2 {
+						output += "|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|\n"
+					} else if j == rowNum-1 {
+						output += "+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+\n"
+					} else {
+						output += "|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|\n"
+					}
+				}
+			}
+		}
+		output += "\n"
+	}
+	output += "*/"
+	return &output
 }
 
 // }}}
 
-/*
-type keymapJson struct {
-	//keyboard string     `json:"keyboard"`
-	//keymap   string     `json:"keymap"`
-	//layout   string     `json:"layout"`
-	layers interface{} `json:"layers"`
-	//author   string     `json:"author"`
-	//notes    string     `json:"notes"`
-}
-*/
+func readJson(jsonText string) *string { // {{{
 
-func StringDArray(j *Json) ([]string, error) {
+	countC := 0 // ,の数カウント
+	countP := 0 // []の数カウント
+	countL := 0 // layer番号 countC := 0 // ,の数カウント
+	keymap := make([]string, maxLayerNum)
 
-	if a, ok := (j.data).([]interface{}); !ok {
+	rs := []rune(jsonText)
+	//fmt.Printf("%s", string(rs))
+	i := strings.Index(jsonText, "\"layers\":")
+	if i == -1 {
+		log.Fatal("Error: jsonの形式が正しくありません。異常終了します。")
 	}
-	// a [][]interface{} <- [][]string{}
+	for i += len("\"layers\":"); i < len(rs); i++ { // "layers":まで進んでいる
 
-	arr, err := j.Array()
-	if err != nil {
-		return nil, err
-	}
-
-	retArrArr := make([][]string, 0, len(arr))
-	for _, a := range arr {
-		if a == nil {
-			retArr := make([]string, 0, 100)
-			retArr = append(retArr, retArr)
-			continue
-		}
-		s, ok := a.(string)
-		if !ok {
-			return nil, errors.New("type assertion to []string failed")
-		}
-		retArr = append(retArr, s)
-	}
-	return retArr, nil
-}
-
-func readJson(path string) { // {{{
-
-	b, err := ioutil.ReadFile(path)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "ファイル %v が読み込めません\n", path)
-		log.Println(err)
-		panic(err)
-	}
-
-	json, err := simplejson.NewJson(b)
-	keymaps, _ := json.Get("layers").StringArray()
-	if err != nil {
-		log.Println(err)
-		panic(err)
-	}
-	fmt.Printf("%v\n", keymaps)
-
-	for i, km := range keymaps {
-		for j := 0; j < len(km); j++ {
-			fmt.Printf("%d\n", i)
-			fmt.Printf("%v,\n", keymaps[i][j])
-		}
-	}
-
-	return
-
-	layers := []string{"", ""}
-
-	// 前処理
-
-	// keymap保存場所を作る
-	LayerNum := len(layers)
-	keymap = make([][][]string, LayerNum)
-	for i := 0; i < LayerNum; i++ {
-		keymap[i] = newLayer(RowNum, ColumnNum)
-	}
-
-	// つめる
-	//for i, l := range p.layers {
-	for i := 0; i < LayerNum; i++ {
-		//fmt.Printf("%d : %s\n", i, l)
-		// keysをいい感じに参照するためのカウンタ
-		// keyがない場所では進めない
-		count := 0
-		for j := 0; j < RowNum; j++ {
-			keys := strings.Split(layers[i], ",")
-			//keys := l
-			for k := 0; k < ColumnNum; k++ {
-				t := &keymap[i][j][k] // 代入先
-				if hasKey(j, k) {
-					*t = keys[count]
-					count++
-				} else {
-					*t = "xx" // helix にキーがない場所j=3行目以内でk=6,7列目
-				}
-				// main processing
-				// LSFT() とかの処理
-				for k, v := range KEYMAP_FUNC {
-					if strings.Contains(*t, k) {
-						tmp := (*t)[len(k):len(*t)]
-						if _, ok := KEYMAP[tmp]; ok {
-							tmp = KEYMAP[tmp]
-						}
-						// LSFT(KC_1)とかを(S)1に変える
-						*t = v + tmp
-					}
-				}
-				if strings.Contains(*t, "LT(") {
-					// LT( 5, KC_NO ) とかは LT(5と KC_NOに別れる
-					// 半角空白やコンマは入らない
-					layerNum := (*t)[3:len(*t)]
-					tmp := keys[count]
-					// これでtmpに数値だけ入る
-					// keys[count]が次のキーコードになる
-					if _, ok := KEYMAP[keys[count]]; ok {
-						tmp = KEYMAP[keys[count]]
-					}
-					*t = "LT" + layerNum + "," + tmp
-					count++
-				}
-				if _, ok := KEYMAP[*t]; ok {
-					*t = KEYMAP[*t]
-				}
-				//fmt.Printf("%3v,%3v,%3v : %10v\n", i, j, k, t)
+		// ここはlayersのなか 1文字づつ処理する
+		switch rs[i] {
+		case ':': // あったらおかしい
+			log.Fatal("Error: jsonの形式が正しくありません。異常終了します。")
+		case ',':
+			countC += 1
+			//fmt.Printf("%d ", countC)
+		case '[':
+			countP += 1
+			//fmt.Printf("countP : %d\n", countP)
+		case ']':
+			countP -= 1 // []の層の深さをひとつ戻す
+			if countP == 0 {
+				// 終わり
+				i = len(rs)
+				break
 			}
+			countL += 1 // layerを次のレイヤーに
+			countC = -1 // ,のカウンタをリセット // この後にすぐ,があるので
+		case '"':
+			// ここはキーコードの手前のダブルクオート
+			// 次の"まで読み込む
+			i++      // ダブルクオートの次の文字を指すようにする
+			pre := i // この位置を保存
+			for rs[i] != '"' {
+				i++ // ダブルクオートがない間進める
+			}
+			literal := string(rs[pre:i]) // ダブルクオートの次の文字からダブルクオートの手前まで切り取る
+			//fmt.Printf("|%v,", literal)
+			//fmt.Printf("%d ", countL)
+			if countC+1 == keyNum {
+				keymap[countL] += literal // これでこのレイヤーは終わり
+			} else {
+				keymap[countL] += literal + ", " // これでliteralにキーコードが入った
+			}
+		default: // 無視
 		}
 	}
+
+	output := ""
+	output += "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
+	for i = 0; i < countL; i++ {
+		if i != countL-1 {
+			output += fmt.Sprintf("\t[%d] = LAYOUT(%s),\n", i, keymap[i])
+		} else {
+			output += fmt.Sprintf("\t[%d] = LAYOUT(%s)\n", i, keymap[i])
+		}
+	}
+	output += "};"
+	return &output
 }
 
 // }}}
@@ -310,34 +276,6 @@ func divNewLine(in string) []string { // {{{2
 } // }}}2
 
 func cutHeader(in string) string { // {{{2
-	rs := []rune(in)
-	pre := '\n'
-	out := ""
-	flag := false
-	for _, r := range rs {
-		if pre == '{' && r == '\n' {
-			flag = true
-			pre = r
-			continue
-		}
-		if flag {
-			switch r {
-			case ' ':
-				continue
-			case ')':
-				continue
-			case '}':
-				return out[:len(out)-1]
-			default:
-				out += string(r)
-			}
-		}
-		pre = r
-	}
-	return out[:len(out)-1]
-} // }}}2
-
-func cutJson(in string) string { // {{{2
 	rs := []rune(in)
 	pre := '\n'
 	out := ""
