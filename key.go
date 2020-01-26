@@ -23,8 +23,8 @@ var KEYMAP = map[string]string{
 	"KC_TRNS":        "Trans", // Use the next lowest non-transparent key
 	"_______":        "Trans", // Use the next lowest non-transparent key
 
-	"KC_NO":   "--",      // NOOP
-	"XXXXXXX": "--",      // NOOP
+	"KC_NO":   "---",     // NOOP
+	"XXXXXXX": "---",     // NOOP
 	"RESET":   "Reset",   // リセット
 	"RGB_TOG": "LED SW",  // LEDのON/OFF
 	"EEP_RST": "E Reset", // EEPROM のリセット

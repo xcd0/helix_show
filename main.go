@@ -99,15 +99,14 @@ func readHeader(layers *[]string) *string { // {{{
 	for i := 0; i < layerNum; i++ {
 		keymap[i] = newLayer(rowNum, columnNum)
 	}
-
-	// つめる
+	// keymapにつめる
 	for i := 0; i < layerNum; i++ {
-		// keysをいい感じに参照するためのカウンタ
-		count := 0
+		count := 0 // keysをいい感じに参照するためのカウンタ helixキーボードにないところを飛ばす
 		for j := 0; j < rowNum; j++ {
-			keys := strings.Split((*layers)[i], ",")
+			keys := strings.Split((*layers)[i], ",") // コンマで分割する これでレイヤー1層分のキーコードが入る
 			for k := 0; k < columnNum; k++ {
-				t := &keymap[i][j][k]
+				// 一文字づつ
+				t := &keymap[i][j][k] // ここに保存する
 				if j < 3 && (k == 6 || k == 7) {
 					// helix にキーがない場所
 					*t = "xx"
@@ -116,8 +115,8 @@ func readHeader(layers *[]string) *string { // {{{
 					count++
 				}
 				// main processing
-				// LSFT() とかの処理
-				for k, v := range KEYMAP_FUNC {
+				// LSFT() とか MO() とかの処理
+				for k, v := range KEYMAP_FUNC { // LT()以外はここで処理する
 					if strings.Contains(*t, k) {
 						tmp := (*t)[len(k):len(*t)]
 						if _, ok := KEYMAP[tmp]; ok {
@@ -128,12 +127,10 @@ func readHeader(layers *[]string) *string { // {{{
 					}
 				}
 				if strings.Contains(*t, "LT(") {
-					// LT( 5, KC_NO ) とかは LT(5と KC_NOに別れる
-					// 半角空白やコンマは入らない
+					// LT( 5, KC_NO ) とかは LT(5と KC_NOに別れる 半角空白やコンマは入らない
 					l := (*t)[3:len(*t)]
 					tmp := keys[count]
-					// これでtmpに数値だけ入る
-					// keys[count]が次のキーコードになる
+					// これでtmpに数値だけ入る keys[count]が次のキーコードになる
 					if _, ok := KEYMAP[keys[count]]; ok {
 						tmp = KEYMAP[keys[count]]
 					}
@@ -148,10 +145,12 @@ func readHeader(layers *[]string) *string { // {{{
 		}
 	}
 
-	output := "/*"
+	output := ""
+	output += "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
 	for i := 0; i < layerNum; i++ {
-		output += fmt.Sprintf("layer %v\n", i)
-		output += "+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+\n"
+		output += "\t/*\n"
+		output += fmt.Sprintf("\t\tlayer %v\n", i)
+		output += "\t\t+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+\n\t\t"
 		for j := 0; j < rowNum; j++ {
 			for k := 0; k < columnNum; k++ {
 				if j < 3 && k == 7 {
@@ -181,18 +180,29 @@ func readHeader(layers *[]string) *string { // {{{
 				if k == columnNum-1 {
 					output += "|\n"
 					if j < 2 {
-						output += "|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|\n"
+						// これは上のほう
+						output += "\t\t|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|\n\t\t"
 					} else if j == rowNum-1 {
-						output += "+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+\n"
+						// これが最後
+						output += "\t\t+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+\n"
 					} else {
-						output += "|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|\n"
+						// これは下のほう
+						output += "\t\t|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|\n\t\t"
 					}
 				}
 			}
 		}
+
+		output += "\t*/\n"
+		// ここに元のレイヤーの記述を書く
+		if i != rowNum-1 {
+			output += fmt.Sprintf("\t[%d] = LAYOUT(%s),\n", i, (*layers)[i])
+		} else {
+			output += fmt.Sprintf("\t[%d] = LAYOUT(%s)\n", i, (*layers)[i])
+		}
 		output += "\n"
 	}
-	output += "*/"
+	output += "};\n\n"
 	return &output
 }
 
@@ -240,9 +250,14 @@ func readJson(jsonText string) *string { // {{{
 			for rs[i] != '"' {
 				i++ // ダブルクオートがない間進める
 			}
-			literal := string(rs[pre:i]) // ダブルクオートの次の文字からダブルクオートの手前まで切り取る
-			//fmt.Printf("|%v,", literal)
-			//fmt.Printf("%d ", countL)
+			literal := string(rs[pre:i]) // ダブルクオートの次の文字からダブルクオートの手前まで切り取る つまりキーコードが入る
+			//fmt.Printf("|%v,%d ", literal, countL)
+			if strings.Contains(literal, "ANY(") { // QMK configuratorでは許容されているが標準ではないマクロ #define ANY(X) X とかでいい
+				fmt.Println("")
+				tmp := literal[len("ANY(") : len(literal)-1]
+				// ANY(KC_1)とかをKC_1に変える つまり中身に置き換える
+				literal = tmp
+			}
 			if countC+1 == keyNum {
 				keymap[countL] += literal // これでこのレイヤーは終わり
 			} else {
@@ -294,11 +309,11 @@ func cutHeader(in string) string { // {{{2
 		}
 		if flag {
 			switch r {
-			case ' ':
+			case ' ': // 捨てる
 				continue
-			case ')':
+			case ')': // 捨てる
 				continue
-			case '}':
+			case '}': // 捨てる
 				return out[:len(out)-1]
 			default:
 				out += string(r)
