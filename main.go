@@ -253,6 +253,7 @@ func readJson(jsonText string) *string { // {{{
 	}
 
 	output := ""
+	output += "#define ANY(X) (X)\n"
 	output += "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
 	for i = 0; i < countL; i++ {
 		if i != countL-1 {
