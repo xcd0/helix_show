@@ -19,5 +19,5 @@ make helix:$build
 
 cp *.hex ../helix_show
 
-#make helix:$build:avrdude
+make helix:$build:avrdude
 
