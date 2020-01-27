@@ -8,7 +8,10 @@ QMK configuratorについては https://bit-trade-one.co.jp/selfmadekb/softwarem
 
 ## 使い方
 
-入力として受け取るファイルの拡張子で2つに処理が分岐します。
+[release](https://github.com/xcd0/helix_show/releases)にバイナリがあるので落として使ってください。  
+
+引数をひとつ取ります。  
+入力として受け取るファイルの拡張子で2つ(.h,.json)に処理が分岐します。
 
 ### ヘッダーファイルの場合
 

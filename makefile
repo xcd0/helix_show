@@ -1,5 +1,6 @@
 DST=./release
 BIN=helix_show
+GOARCH=amd64
 
 all: build
 
