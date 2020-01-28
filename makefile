@@ -8,8 +8,8 @@ build:
 	go build
 
 run: build
-	./helix_show ./yj5/yj5.json
-	mv ./yj5/yj5.h ./yj5/5.h
+	./helix_show ./yj/yj.json
+	mv ./yj/yj.h ./yj/5.h
 
 qmk:
 	bash qmk_build.sh

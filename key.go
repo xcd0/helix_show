@@ -85,35 +85,35 @@ var KEYMAP = map[string]string{
 	// qmk_firmware/quantum/keymap_extras/keymap_jp.h にある
 	// Aliases for shifted symbols
 	"JP_ZHTG":  "半/全",   // KC_GRV  // hankaku/zenkaku|kanzi
-	"JP_YEN":   "\\  |", // KC_INT3 // yen, |
-	"JP_CIRC":  "^  ~",  // KC_EQL  // ^, ~
-	"JP_AT":    "@  `",  // KC_LBRC // @, `
-	"JP_LBRC":  "[  {",  // KC_RBRC // [, {
-	"JP_COLN":  ":  *",  // KC_QUOT // :, *
-	"JP_RBRC":  "]  }",  // KC_NUHS // ], }
-	"JP_BSLS":  "\\  _", // KC_INT1 // \, _
+	"JP_YEN":   "\\", // "\\  |", // KC_INT3 // yen, |
+	"JP_CIRC":  "^", // "^  ~",  // KC_EQL  // ^, ~
+	"JP_AT":    "@", // "@  `",  // KC_LBRC // @, `
+	"JP_LBRC":  "[", // "[  {",  // KC_RBRC // [, {
+	"JP_RBRC":  "]", // "]  }",  // KC_NUHS // ], }
+	"JP_BSLS":  "\\", // "\\  _", // KC_INT1 // \, _
 	"JP_MHEN":  "無変換",   // KC_INT5 // muhenkan
 	"JP_HENK":  "変換",    // KC_INT4 // henkan
 	"JP_KANA":  "カひロ",   // KC_INT2 // katakana/hiragana|ro-mazi
 	"JP_MKANA": "かな",    // KC_LANG1 //kana on MacOSX
 	"JP_MEISU": "英数",    // KC_LANG2 //eisu on MacOSX
 	"JP_DQT":   "\"",    // LSFT(KC_2)    // "
-	"JP_AMPR":  "&",     // LSFT(KC_6)    // &
 	"JP_QUOT":  "'",     // LSFT(KC_7)    // '
+	"JP_GRV":   "`",     // LSFT(JP_AT)   // `
+	"JP_AMPR":  "&",     // LSFT(KC_6)    // &
 	"JP_LPRN":  "(",     // LSFT(KC_8)    // (
 	"JP_RPRN":  ")",     // LSFT(KC_9)    // )
 	"JP_EQL":   "=",     // LSFT(KC_MINS) // =
 	"JP_TILD":  "~",     // LSFT(JP_CIRC) // ~
 	"JP_PIPE":  "|",     // LSFT(JP_YEN)  // |
-	"JP_GRV":   "`",     // LSFT(JP_AT)   // `
 	"JP_LCBR":  "{",     // LSFT(JP_LBRC) // {
+	"JP_RCBR":  "}",     // LSFT(JP_RBRC) // }
 	"JP_PLUS":  "+",     // LSFT(KC_SCLN) // +
 	"JP_ASTR":  "*",     // LSFT(JP_COLN) // *
-	"JP_RCBR":  "}",     // LSFT(JP_RBRC) // }
 	"JP_UNDS":  "_",     // LSFT(JP_BSLS) // _
 	// These symbols are correspond to US101-layout.
 	"JP_MINS": "-", // KC_MINS // -
 	"JP_SCLN": ";", // KC_SCLN // ;
+	"JP_COLN":  ":", // ":  *",  // KC_QUOT // :, *
 	"JP_COMM": ",", // KC_COMM // ,
 	"JP_DOT":  ".", // KC_DOT  // .
 	"JP_SLSH": "/", // KC_SLSH // /
