@@ -349,8 +349,8 @@ case L_ARROW:matrix_write_P(matrix, PSTR("Arrow"));break;
 case L_SYMBOL:matrix_write_P(matrix, PSTR("Symbol"));break;
 case L_EMPTY6:matrix_write_P(matrix, PSTR("Empty6"));break;
 case L_EMPTY7:matrix_write_P(matrix, PSTR("Empty7"));break;
-case L_SHIFTQWERTY:matrix_write_P(matrix, PSTR("ShiftQqwerty"));break;
-case L_SHIFTYSTRP:matrix_write_P(matrix, PSTR("ShiftYstrp"));break;
+case L_SHIFTQWERTY:matrix_write_P(matrix, PSTR("S.Qqwerty"));break;
+case L_SHIFTYSTRP:matrix_write_P(matrix, PSTR("S.Ystrp"));break;
 case L_LAYERS:matrix_write_P(matrix, PSTR("Layers"));break;
 
         /*

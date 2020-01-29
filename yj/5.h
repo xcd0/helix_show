@@ -8,12 +8,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
 		|  LCtrl  |    a    |    s    |    d    |    f    |    g    |                   |    h    |    j    |    k    |    l    |  ;  :   |  Enter  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		|  MO.8   |    z    |    x    |    c    |    v    |    b    |  MO.3   |  MO.3   |    n    |    m    |  ,  <   |  .  >   |  /  ?   |  MO.8   |
+		|  MO.8   |    z    |    x    |    c    |    v    |    b    |  MO.3   |  MO.3   |    n    |    m    |    /    |    \    |    .    |  MO.8   |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		|  LAlt   |  Reset  |  MO.10  |  LGUI   |  Eisu   |   Spc   |  MO.4   |  MO.5   |   Spc   |  Kana   |  Reset  |  TG.2   |  DF.1   |  DF.0   |
+		|  LAlt   |  Reset  |  MO.10  |  LGUI   |  MuHen  |   Spc   |  MO.4   |  MO.5   |   Spc   | HenKan  |  Reset  |  TG.2   |  DF.1   |  DF.0   |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[0] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSPC,KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_ENT,MO(8),KC_Z,KC_X,KC_C,KC_V,KC_B,MO(3),MO(3),KC_N,KC_M,KC_COMM,KC_DOT,KC_SLSH,MO(8),KC_LALT,RESET,MO(10),KC_LGUI,KC_LANG2,KC_SPC,MO(4),MO(5),KC_SPC,KC_LANG1,RESET,TG(2),DF(1),DF(0)),
+	[0] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSPC,KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_ENT,MO(8),KC_Z,KC_X,KC_C,KC_V,KC_B,MO(3),MO(3),KC_N,KC_M,JP_SLSH,JP_YEN,JP_DOT,MO(8),KC_LALT,RESET,MO(10),KC_LGUI,KC_MHEN,KC_SPC,MO(4),MO(5),KC_SPC,KC_HENK,RESET,TG(2),DF(1),DF(0)),
 
 	/*
 		layer 1
@@ -24,28 +24,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
 		|  LCtrl  |    a    |    o    |    e    |    u    |    i    |                   |    h    |    j    |    k    |    l    |  ;  :   |  Enter  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		|  MO.9   |    z    |    x    |    c    |    v    |    b    |  MO.3   |  MO.3   |    n    |    m    |  ,  <   |  .  >   |  /  ?   |  MO.9   |
+		|  MO.9   |    z    |    x    |    c    |    v    |    b    |  MO.3   |  MO.3   |    n    |    m    |    /    |    \    |    .    |  MO.9   |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 		|  LAlt   |  Reset  |  DF.10  |  LGUI   |  Eisu   |   Spc   |  MO.4   |  MO.5   |   Spc   |  Kana   |  Reset  |  TG.2   |  DF.1   |  DF.0   |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[1] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_D,KC_F,KC_G,KC_Y,KC_S,KC_T,KC_R,KC_P,KC_BSPC,KC_LCTL,KC_A,KC_O,KC_E,KC_U,KC_I,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_ENT,MO(9),KC_Z,KC_X,KC_C,KC_V,KC_B,MO(3),MO(3),KC_N,KC_M,KC_COMM,KC_DOT,KC_SLSH,MO(9),KC_LALT,RESET,DF(10),KC_LGUI,KC_LANG2,KC_SPC,MO(4),MO(5),KC_SPC,KC_LANG1,RESET,TG(2),DF(1),DF(0)),
+	[1] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_D,KC_F,KC_G,KC_Y,KC_S,KC_T,KC_R,KC_P,KC_BSPC,KC_LCTL,KC_A,KC_O,KC_E,KC_U,KC_I,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_ENT,MO(9),KC_Z,KC_X,KC_C,KC_V,KC_B,MO(3),MO(3),KC_N,KC_M,JP_SLSH,JP_YEN,JP_DOT,MO(9),KC_LALT,RESET,DF(10),KC_LGUI,KC_LANG2,KC_SPC,MO(4),MO(5),KC_SPC,KC_LANG1,RESET,TG(2),DF(1),DF(0)),
 
 	/*
 		layer 2
 		+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+
-		|   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |                   |_NLClear |   _ /   |   _ *   |   _ -   |   ---   |   ---   |
+		|   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |                   |_NLClear |   _ /   |   _ *   |   _ -   |   ---   | Delete  |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |                   | _7_Home |  _8_Up  | _9_PgU  |   _ +   |   ---   |   ---   |
+		|   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |                   | _7_Home |  _8_Up  | _9_PgU  |   _ +   |   ---   |   Bk    |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
 		|   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |                   | _4_Left |   _5    |_6_Right | _ Enter |   ---   |   ---   |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 		|   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |  Reset  |  Reset  | _1_End  | _2_Down | _3_PgD  | _ Enter |   ---   |   ---   |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		|   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |   ---   | _0_Ins  | _0_Ins  | _ . Dlt |  Trans  |  DF.1   |  DF.0   |
+		|   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |   Bk    | _0_Ins  | _0_Ins  | _ . Dlt |  Trans  |  DF.1   |  DF.0   |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[2] = LAYOUT(KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_P7,KC_P8,KC_P9,KC_PPLS,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_P4,KC_P5,KC_P6,KC_PENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,RESET,RESET,KC_P1,KC_P2,KC_P3,KC_PENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_P0,KC_P0,KC_PDOT,KC_TRNS,DF(1),DF(0)),
+	[2] = LAYOUT(KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,KC_NO,KC_DEL,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_P7,KC_P8,KC_P9,KC_PPLS,KC_NO,KC_BSPC,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_P4,KC_P5,KC_P6,KC_PENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,RESET,RESET,KC_P1,KC_P2,KC_P3,KC_PENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_BSPC,KC_P0,KC_P0,KC_PDOT,KC_TRNS,DF(1),DF(0)),
 
 	/*
 		layer 3
@@ -56,44 +56,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
 		| E Reset |RGB_M_SN | RGB_M_B | RGB_M_R | Meido-  | Meido+  |                   | Mouse L | Mouse D | Mouse U | Mouse R | Wheel D | E Reset |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		| LShift  |RGB_M_SW |   ---   | LED SW  | Shodo-  | Shodo+  |  Trans  |  Trans  |   ---   |   ---   |   ---   |   ---   |   ---   | RShift  |
+		| LShift  |RGB_M_SW |   ---   | LED SW  | Shodo-  | Shodo+  |  Trans  |  Trans  |   ---   |   ---   |   ---   |  RAlt   |  RCtrl  | RShift  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 		|   mac   |   win   | Effect- | Effect+ | Eff Sp- | Eff Sp+ |  Reset  |  Reset  | E Reset |   ---   |   ---   |   ---   |  DF.1   |  DF.0   |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[3] = LAYOUT(KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,RESET,RGB_M_P,RGB_M_X,RGB_M_G,RGB_SAD,RGB_SAI,KC_NO,KC_BTN1,KC_BTN3,KC_BTN2,KC_WH_U,RESET,EEP_RST,RGB_M_SN,RGB_M_B,RGB_M_R,RGB_HUD,RGB_HUI,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,KC_WH_D,EEP_RST,KC_LSFT,RGB_M_SW,KC_NO,RGB_TOG,RGB_VAD,RGB_VAI,KC_TRNS,KC_TRNS,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_RSFT,AG_NORM,AG_SWAP,RGB_RMOD,RGB_MOD,RGB_SPD,RGB_SPI,RESET,RESET,EEP_RST,KC_NO,KC_NO,KC_NO,DF(1),DF(0)),
+	[3] = LAYOUT(KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,RESET,RGB_M_P,RGB_M_X,RGB_M_G,RGB_SAD,RGB_SAI,KC_NO,KC_BTN1,KC_BTN3,KC_BTN2,KC_WH_U,RESET,EEP_RST,RGB_M_SN,RGB_M_B,RGB_M_R,RGB_HUD,RGB_HUI,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,KC_WH_D,EEP_RST,KC_LSFT,RGB_M_SW,KC_NO,RGB_TOG,RGB_VAD,RGB_VAI,KC_TRNS,KC_TRNS,KC_NO,KC_NO,KC_NO,KC_RALT,KC_RCTL,KC_RSFT,AG_NORM,AG_SWAP,RGB_RMOD,RGB_MOD,RGB_SPD,RGB_SPI,RESET,RESET,EEP_RST,KC_NO,KC_NO,KC_NO,DF(1),DF(0)),
 
 	/*
 		layer 4
 		+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+
-		|   ---   | _1_End  | _2_Down | _3_PgD  | _4_Left |   _5    |                   |_6_Right | _7_Home |  _8_Up  | _9_PgU  | _0_Ins  | Delete  |
+		|   Esc   |    1    |    2    |    3    |    4    |    5    |                   |    6    |    7    |    8    |    9    |    0    | Delete  |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|   ---   |   ---   |   Up    |   ---   |  Home   |  PageU  |                   |    (    |    )    |    <    |    >    |    &    |   Bk    |
+		|   Tab   |    ~    |    _    |    "    |    '    |    `    |                   |    (    |    )    |    <    |    >    |    &    |   Bk    |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|   ---   |  Left   |  Down   |  Right  |   End   |  PageD  |                   |    {    |    }    |    [    |    ]    |    |    |  Enter  |
+		|  LCtrl  |    +    |    -    |    *    |    =    |    :    |                   |    {    |    }    |    [    |    ]    |    |    |  Enter  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		|   ---   |   ---   |   ---   |   ---   | PrntScn | Insert  |  Reset  |  Reset  |    @    |    ^    |   ---   |   ---   |   ---   |   ---   |
+		| LShift  |    !    |    ?    |    #    |    $    |    %    |   ---   |   ---   |    @    |    ^    |   ---   |   ---   |   ---   | RShift  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		|   ---   |   ---   |   ---   |   ---   | E Reset |  Reset  |  Trans  |   ---   |  Reset  | E Reset |   ---   |   ---   |  DF.1   |  DF.0   |
+		|  LAlt   |  Reset  |   ---   |  LGUI   |  Eisu   |   Spc   |  Trans  |   ---   |   Spc   |  Kana   |  Reset  |   ---   |  DF.1   |  DF.0   |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[4] = LAYOUT(KC_NO,KC_P1,KC_P2,KC_P3,KC_P4,KC_P5,KC_P6,KC_P7,KC_P8,KC_P9,KC_P0,KC_DEL,KC_NO,KC_NO,KC_UP,KC_NO,KC_HOME,KC_PGUP,JP_LPRN,JP_RPRN,JP_LT,JP_GT,JP_AMPR,KC_BSPC,KC_NO,KC_LEFT,KC_DOWN,KC_RGHT,KC_END,KC_PGDN,JP_LCBR,JP_RCBR,JP_LBRC,JP_RBRC,JP_PIPE,KC_ENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_PSCR,KC_INS,RESET,RESET,JP_AT,JP_CIRC,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,EEP_RST,RESET,KC_TRNS,KC_NO,RESET,EEP_RST,KC_NO,KC_NO,DF(1),DF(0)),
+	[4] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,JP_TILD,JP_UNDS,JP_DQT,JP_QUOT,JP_GRV,JP_LPRN,JP_RPRN,JP_LT,JP_GT,JP_AMPR,KC_BSPC,KC_LCTL,JP_PLUS,JP_MINS,JP_ASTR,JP_EQL,JP_COLN,JP_LCBR,JP_RCBR,JP_LBRC,JP_RBRC,JP_PIPE,KC_ENT,KC_LSFT,JP_EXLM,JP_QUES,JP_HASH,JP_DLR,JP_PERC,KC_NO,KC_NO,JP_AT,JP_CIRC,KC_NO,KC_NO,KC_NO,KC_RSFT,KC_LALT,RESET,KC_NO,KC_LGUI,KC_LANG2,KC_SPC,KC_TRNS,KC_NO,KC_SPC,KC_LANG1,RESET,KC_NO,DF(1),DF(0)),
 
 	/*
 		layer 5
 		+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+
-		|   ---   |    1    |    2    |    3    |    4    |    5    |                   |    6    |    7    |    8    |    9    |    0    | Delete  |
+		|   Esc   | _1_End  | _2_Down | _3_PgD  | _4_Left |   _5    |                   |_6_Right | _7_Home |  _8_Up  | _9_PgU  | _0_Ins  | Delete  |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|   ---   |    ~    |    _    |    "    |    '    |    `    |                   |    (    |    )    |    <    |    >    |    &    |   Bk    |
+		|   Tab   |   ---   |   Up    |   ---   |  Home   |  PageU  |                   |  Home   |  PageD  |  PageU  |   End   | PrntScn |   Bk    |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|  LCtrl  |    +    |    -    |    *    |    =    |    :    |                   |    {    |    }    |    [    |    ]    |    |    |  Enter  |
+		|  LCtrl  |  Left   |  Down   |  Right  |   End   |  PageD  |                   |  Left   |  Down   |   Up    |  Right  | Insert  |  Enter  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		| LShift  |    !    |    ?    |    #    |    $    |    %    |  Reset  |  Reset  |    @    |    ^    |   ---   |   ---   |   ---   | LShift  |
+		| LShift  |   ---   |   ---   |   ---   | PrntScn | Insert  |   ---   |   ---   |   ---   |   ---   |   ---   |   ---   |   ---   | RShift  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		|  LAlt   |   ---   |   ---   |  LGUI   |  Eisu   |   Spc   |   ---   |  Trans  |   Spc   |  Kana   |  RGUI   |   ---   |  DF.1   |  DF.0   |
+		|  LAlt   |   ---   |  LGUI   |   ---   | E Reset |  Reset  |   ---   |  Trans  |  Reset  | E Reset |   ---   |   ---   |  DF.1   |  DF.0   |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[5] = LAYOUT(KC_NO,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_NO,JP_TILD,JP_UNDS,JP_DQT,JP_QUOT,JP_GRV,JP_LPRN,JP_RPRN,JP_LT,JP_GT,JP_AMPR,KC_BSPC,KC_LCTL,JP_PLUS,JP_MINS,JP_ASTR,JP_EQL,JP_COLN,JP_LCBR,JP_RCBR,JP_LBRC,JP_RBRC,JP_PIPE,KC_ENT,KC_LSFT,JP_EXLM,JP_QUES,JP_HASH,JP_DLR,JP_PERC,RESET,RESET,JP_AT,JP_CIRC,KC_NO,KC_NO,KC_NO,KC_LSFT,KC_LALT,KC_NO,KC_NO,KC_LGUI,KC_LANG2,KC_SPC,KC_NO,KC_TRNS,KC_SPC,KC_LANG1,KC_RGUI,KC_NO,DF(1),DF(0)),
+	[5] = LAYOUT(KC_ESC,KC_P1,KC_P2,KC_P3,KC_P4,KC_P5,KC_P6,KC_P7,KC_P8,KC_P9,KC_P0,KC_DEL,KC_TAB,KC_NO,KC_UP,KC_NO,KC_HOME,KC_PGUP,KC_HOME,KC_PGDN,KC_PGUP,KC_END,KC_PSCR,KC_BSPC,KC_LCTL,KC_LEFT,KC_DOWN,KC_RGHT,KC_END,KC_PGDN,KC_LEFT,KC_DOWN,KC_UP,KC_RGHT,KC_INS,KC_ENT,KC_LSFT,KC_NO,KC_NO,KC_NO,KC_PSCR,KC_INS,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_RSFT,KC_LALT,KC_NO,KC_LGUI,KC_NO,EEP_RST,RESET,KC_NO,KC_TRNS,RESET,EEP_RST,KC_NO,KC_NO,DF(1),DF(0)),
 
 	/*
 		layer 6
@@ -134,14 +134,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
 		|   Tab   |   S q   |   S w   |   S e   |   S r   |   S t   |                   |   S y   |   S u   |   S i   |   S o   |   S p   |   Bk    |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|  LCtrl  |   S a   |   S s   |   S d   |   S f   |   S g   |                   |   S h   |   S j   |   S k   |   S l   | S ;  :  |  Enter  |
+		|  LCtrl  |   S a   |   S s   |   S d   |   S f   |   S g   |                   |   S h   |   S j   |   S k   |   S l   |    :    |  Enter  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		|  Trans  |   S z   |   S x   |   S c   |   S v   |   S b   |  Reset  |  Reset  |   S n   |   S m   | S ,  <  | S .  >  | S /  ?  |  Trans  |
+		|  Trans  |   S z   |   S x   |   S c   |   S v   |   S b   |  Reset  |  Reset  |   S n   |   S m   |    /    |    \    |    ,    |  Trans  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 		|  LAlt   |   ---   |  DF.10  | S LGUI  |  Eisu   |  S Spc  |   ---   |   ---   |  S Spc  |  Kana   | S RGUI  |   ---   |  DF.1   |  DF.0   |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[8] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,LSFT(KC_Q),LSFT(KC_W),LSFT(KC_E),LSFT(KC_R),LSFT(KC_T),LSFT(KC_Y),LSFT(KC_U),LSFT(KC_I),LSFT(KC_O),LSFT(KC_P),KC_BSPC,KC_LCTL,LSFT(KC_A),LSFT(KC_S),LSFT(KC_D),LSFT(KC_F),LSFT(KC_G),LSFT(KC_H),LSFT(KC_J),LSFT(KC_K),LSFT(KC_L),LSFT(KC_SCLN),KC_ENT,KC_TRNS,LSFT_T(KC_Z),LSFT(KC_X),LSFT(KC_C),LSFT(KC_V),LSFT(KC_B),RESET,RESET,LSFT(KC_N),LSFT(KC_M),LSFT(KC_COMM),LSFT(KC_DOT),LSFT(KC_SLSH),KC_TRNS,KC_LALT,KC_NO,DF(10),LSFT(KC_LGUI),KC_LANG2,LSFT(KC_SPC),KC_NO,KC_NO,LSFT(KC_SPC),KC_LANG1,LSFT(KC_RGUI),KC_NO,DF(1),DF(0)),
+	[8] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,LSFT(KC_Q),LSFT(KC_W),LSFT(KC_E),LSFT(KC_R),LSFT(KC_T),LSFT(KC_Y),LSFT(KC_U),LSFT(KC_I),LSFT(KC_O),LSFT(KC_P),KC_BSPC,KC_LCTL,LSFT(KC_A),LSFT(KC_S),LSFT(KC_D),LSFT(KC_F),LSFT(KC_G),LSFT(KC_H),LSFT(KC_J),LSFT(KC_K),LSFT(KC_L),JP_COLN,KC_ENT,KC_TRNS,LSFT_T(KC_Z),LSFT(KC_X),LSFT(KC_C),LSFT(KC_V),LSFT(KC_B),RESET,RESET,LSFT(KC_N),LSFT(KC_M),JP_SLSH,JP_YEN,JP_COMM,KC_TRNS,KC_LALT,KC_NO,DF(10),LSFT(KC_LGUI),KC_LANG2,LSFT(KC_SPC),KC_NO,KC_NO,LSFT(KC_SPC),KC_LANG1,LSFT(KC_RGUI),KC_NO,DF(1),DF(0)),
 
 	/*
 		layer 9
@@ -150,14 +150,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
 		|   Tab   |   S q   |   S w   |   S d   |   S f   |   S g   |                   |   S y   |   S s   |   S t   |   S r   |   S p   |   Bk    |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|  LCtrl  |   S a   |   S o   |   S e   |   S u   |   S i   |                   |   S h   |   S j   |   S k   |   S l   | S ;  :  |  Enter  |
+		|  LCtrl  |   S a   |   S o   |   S e   |   S u   |   S i   |                   |   S h   |   S j   |   S k   |   S l   |    :    |  Enter  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		|  Trans  |   S z   |   S x   |   S c   |   S v   |   S b   |  Reset  |  Reset  |   S n   |   S m   | S ,  <  | S .  >  | S /  ?  |  Trans  |
+		|  Trans  |   S z   |   S x   |   S c   |   S v   |   S b   |  Reset  |  Reset  |   S n   |   S m   |    /    |    \    |    ,    |  Trans  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 		|  LAlt   |   ---   |  DF.10  | S LGUI  |  Eisu   |  S Spc  |   ---   |   ---   |  S Spc  |  Kana   | S RGUI  |   ---   |  DF.1   |  DF.0   |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[9] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,LSFT(KC_Q),LSFT(KC_W),LSFT(KC_D),LSFT(KC_F),LSFT(KC_G),LSFT(KC_Y),LSFT(KC_S),LSFT(KC_T),LSFT(KC_R),LSFT(KC_P),KC_BSPC,KC_LCTL,LSFT(KC_A),LSFT(KC_O),LSFT(KC_E),LSFT(KC_U),LSFT(KC_I),LSFT(KC_H),LSFT(KC_J),LSFT(KC_K),LSFT(KC_L),LSFT(KC_SCLN),KC_ENT,KC_TRNS,LSFT(KC_Z),LSFT(KC_X),LSFT(KC_C),LSFT(KC_V),LSFT(KC_B),RESET,RESET,LSFT(KC_N),LSFT(KC_M),LSFT(KC_COMM),LSFT(KC_DOT),LSFT(KC_SLSH),KC_TRNS,KC_LALT,KC_NO,DF(10),LSFT(KC_LGUI),KC_LANG2,LSFT(KC_SPC),KC_NO,KC_NO,LSFT(KC_SPC),KC_LANG1,LSFT(KC_RGUI),KC_NO,DF(1),DF(0)),
+	[9] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,LSFT(KC_Q),LSFT(KC_W),LSFT(KC_D),LSFT(KC_F),LSFT(KC_G),LSFT(KC_Y),LSFT(KC_S),LSFT(KC_T),LSFT(KC_R),LSFT(KC_P),KC_BSPC,KC_LCTL,LSFT(KC_A),LSFT(KC_O),LSFT(KC_E),LSFT(KC_U),LSFT(KC_I),LSFT(KC_H),LSFT(KC_J),LSFT(KC_K),LSFT(KC_L),JP_COLN,KC_ENT,KC_TRNS,LSFT(KC_Z),LSFT(KC_X),LSFT(KC_C),LSFT(KC_V),LSFT(KC_B),RESET,RESET,LSFT(KC_N),LSFT(KC_M),JP_SLSH,JP_YEN,JP_COMM,KC_TRNS,KC_LALT,KC_NO,DF(10),LSFT(KC_LGUI),KC_LANG2,LSFT(KC_SPC),KC_NO,KC_NO,LSFT(KC_SPC),KC_LANG1,LSFT(KC_RGUI),KC_NO,DF(1),DF(0)),
 
 	/*
 		layer 10
