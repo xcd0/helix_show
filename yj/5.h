@@ -8,12 +8,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
 		|  LCtrl  |    a    |    s    |    d    |    f    |    g    |                   |    h    |    j    |    k    |    l    |  ;  :   |  Enter  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		| LShift  |    z    |    x    |    c    |    v    |    b    | LT3,--- | LT3,--- |    n    |    m    |    /    |    \    |    .    | RShift  |
+		| LShift  |    z    |    x    |    c    |    v    |    b    | LT3,--- | LT3,--- |    n    |    m    |    .    |    /    |    \    | RShift  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 		|  LAlt   |   ---   |   ---   |  LGUI   |  MuHen  |   Spc   |LT4,Home | LT5,End |   Spc   | HenKan  |  DF.1   |  TG.2   |  RAlt   |  RCtrl  |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[0] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSPC,KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_ENT,KC_LSFT,KC_Z,KC_X,KC_C,KC_V,KC_B,LT(3,KC_NO),LT(3,KC_NO),KC_N,KC_M,JP_SLSH,JP_YEN,JP_DOT,KC_RSFT,KC_LALT,KC_NO,KC_NO,KC_LGUI,KC_MHEN,KC_SPC,LT(4,KC_HOME),LT(5,KC_END),KC_SPC,KC_HENK,DF(1),TG(2),KC_RALT,KC_RCTL),
+	[0] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSPC,KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_ENT,KC_LSFT,KC_Z,KC_X,KC_C,KC_V,KC_B,LT(3,KC_NO),LT(3,KC_NO),KC_N,KC_M,JP_DOT,JP_SLSH,JP_YEN,KC_RSFT,KC_LALT,KC_NO,KC_NO,KC_LGUI,KC_MHEN,KC_SPC,LT(4,KC_HOME),LT(5,KC_END),KC_SPC,KC_HENK,DF(1),TG(2),KC_RALT,KC_RCTL),
 
 	/*
 		layer 1
@@ -24,12 +24,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
 		|  LCtrl  |    a    |    o    |    e    |    u    |    i    |                   |    h    |    j    |    k    |    l    |  ;  :   |  Enter  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		| LShift  |    z    |    x    |    c    |    v    |    b    | LT3,--- | LT3,--- |    n    |    m    |    /    |    \    |    .    | RShift  |
+		| LShift  |    z    |    x    |    c    |    v    |    b    | LT3,--- | LT3,--- |    n    |    m    |    .    |    /    |    \    | RShift  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 		|  LAlt   |   ---   |   ---   |  LGUI   |  MuHen  |   Spc   |LT4,Home | LT5,End |   Spc   | HenKan  |  DF.0   |  TG.2   |  RAlt   |  RCtrl  |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[1] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_D,KC_F,KC_G,KC_Y,KC_S,KC_T,KC_R,KC_P,KC_BSPC,KC_LCTL,KC_A,KC_O,KC_E,KC_U,KC_I,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_ENT,KC_LSFT,KC_Z,KC_X,KC_C,KC_V,KC_B,LT(3,KC_NO),LT(3,KC_NO),KC_N,KC_M,JP_SLSH,JP_YEN,JP_DOT,KC_RSFT,KC_LALT,KC_NO,KC_NO,KC_LGUI,KC_MHEN,KC_SPC,LT(4,KC_HOME),LT(5,KC_END),KC_SPC,KC_HENK,DF(0),TG(2),KC_RALT,KC_RCTL),
+	[1] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_D,KC_F,KC_G,KC_Y,KC_S,KC_T,KC_R,KC_P,KC_BSPC,KC_LCTL,KC_A,KC_O,KC_E,KC_U,KC_I,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_ENT,KC_LSFT,KC_Z,KC_X,KC_C,KC_V,KC_B,LT(3,KC_NO),LT(3,KC_NO),KC_N,KC_M,JP_DOT,JP_SLSH,JP_YEN,KC_RSFT,KC_LALT,KC_NO,KC_NO,KC_LGUI,KC_MHEN,KC_SPC,LT(4,KC_HOME),LT(5,KC_END),KC_SPC,KC_HENK,DF(0),TG(2),KC_RALT,KC_RCTL),
 
 	/*
 		layer 2
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+
 		|   F1    |   F2    |   F3    |   F4    |   F5    |   F6    |                   |   F7    |   F8    |   F9    |   F10   |   F11   |   F12   |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|   ---   | RGB_M_P | RGB_M_X | RGB_M_G | Saido-  | Saido+  |                   |   ---   | L Click | C Click | R Click | Wheel U |   ---   |
+		|   ---   | RGB_M_P | RGB_M_X | RGB_M_G | Saido-  | Saido+  |                   |C Insert | L Click | C Click | R Click | Wheel U |S Insert |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
 		|   ---   |RGB_M_SN | RGB_M_B | RGB_M_R | Meido-  | Meido+  |                   | Mouse L | Mouse D | Mouse U | Mouse R | Wheel D |   ---   |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
@@ -61,23 +61,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		|   mac   |   win   | Effect- | Effect+ | Eff Sp- | Eff Sp+ |  Reset  |  Reset  |   ---   |   ---   |  DF.0   |   ---   |  RAlt   |  RCtrl  |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[3] = LAYOUT(KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,KC_NO,RGB_M_P,RGB_M_X,RGB_M_G,RGB_SAD,RGB_SAI,KC_NO,KC_BTN1,KC_BTN3,KC_BTN2,KC_WH_U,KC_NO,KC_NO,RGB_M_SN,RGB_M_B,RGB_M_R,RGB_HUD,RGB_HUI,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,KC_WH_D,KC_NO,KC_LSFT,RGB_M_SW,KC_NO,RGB_TOG,RGB_VAD,RGB_VAI,KC_TRNS,KC_TRNS,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_RSFT,AG_NORM,AG_SWAP,RGB_RMOD,RGB_MOD,RGB_SPD,RGB_SPI,RESET,RESET,KC_NO,KC_NO,DF(0),KC_NO,KC_RALT,KC_RCTL),
+	[3] = LAYOUT(KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,KC_NO,RGB_M_P,RGB_M_X,RGB_M_G,RGB_SAD,RGB_SAI,LCTL(KC_INS),KC_BTN1,KC_BTN3,KC_BTN2,KC_WH_U,LSFT(KC_INS),KC_NO,RGB_M_SN,RGB_M_B,RGB_M_R,RGB_HUD,RGB_HUI,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,KC_WH_D,KC_NO,KC_LSFT,RGB_M_SW,KC_NO,RGB_TOG,RGB_VAD,RGB_VAI,KC_TRNS,KC_TRNS,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_RSFT,AG_NORM,AG_SWAP,RGB_RMOD,RGB_MOD,RGB_SPD,RGB_SPI,RESET,RESET,KC_NO,KC_NO,DF(0),KC_NO,KC_RALT,KC_RCTL),
 
 	/*
 		layer 4
 		+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+
 		|   Esc   |    1    |    2    |    3    |    4    |    5    |                   |    6    |    7    |    8    |    9    |    0    | Delete  |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|   Tab   |    ~    |    _    |    "    |    '    |    `    |                   |    (    |    )    |    <    |    >    |    &    |   Bk    |
+		|   Tab   |   ---   |    =    |   ---   |    '    |    `    |                   |    (    |    )    |    <    |    >    |    @    |   Bk    |
 		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-		|  LCtrl  |    +    |    -    |    *    |    =    |    :    |                   |    {    |    }    |    [    |    ]    |    |    |  Enter  |
+		|  LCtrl  |    +    |    -    |    *    |    _    |    "    |                   |    {    |    }    |    [    |    ]    |    :    |  Enter  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-		| LShift  |    !    |    ?    |    #    |    $    |    %    |  Reset  |  Reset  |    @    |    ^    |   ---   |   ---   |   ---   | RShift  |
+		| LShift  |    !    |    ?    |    #    |    $    |    %    |  Reset  |  Reset  |    &    |    |    |    ,    |    ^    |    ~    | RShift  |
 		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 		|  LAlt   |  Reset  |   ---   |  LGUI   |  MuHen  |   Spc   |  Trans  |   ---   |   Spc   | HenKan  |  DF.0   |   ---   |  RAlt   |  RCtrl  |
 		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
 	*/
-	[4] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,JP_TILD,JP_UNDS,JP_DQT,JP_QUOT,JP_GRV,JP_LPRN,JP_RPRN,JP_LT,JP_GT,JP_AMPR,KC_BSPC,KC_LCTL,JP_PLUS,JP_MINS,JP_ASTR,JP_EQL,JP_COLN,JP_LCBR,JP_RCBR,JP_LBRC,JP_RBRC,JP_PIPE,KC_ENT,KC_LSFT,JP_EXLM,JP_QUES,JP_HASH,JP_DLR,JP_PERC,RESET,RESET,JP_AT,JP_CIRC,KC_NO,KC_NO,KC_NO,KC_RSFT,KC_LALT,RESET,KC_NO,KC_LGUI,KC_MHEN,KC_SPC,KC_TRNS,KC_NO,KC_SPC,KC_HENK,DF(0),KC_NO,KC_RALT,KC_RCTL),
+	[4] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_NO,JP_EQL,KC_NO,JP_QUOT,JP_GRV,JP_LPRN,JP_RPRN,JP_LT,JP_GT,JP_AT,KC_BSPC,KC_LCTL,JP_PLUS,JP_MINS,JP_ASTR,JP_UNDS,JP_DQT,JP_LCBR,JP_RCBR,JP_LBRC,JP_RBRC,JP_COLN,KC_ENT,KC_LSFT,JP_EXLM,JP_QUES,JP_HASH,JP_DLR,JP_PERC,RESET,RESET,JP_AMPR,JP_PIPE,JP_COMM,JP_CIRC,JP_TILD,KC_RSFT,KC_LALT,RESET,KC_NO,KC_LGUI,KC_MHEN,KC_SPC,KC_TRNS,KC_NO,KC_SPC,KC_HENK,DF(0),KC_NO,KC_RALT,KC_RCTL),
 
 	/*
 		layer 5

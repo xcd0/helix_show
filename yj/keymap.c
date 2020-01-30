@@ -29,13 +29,8 @@ enum layer_number {
     _YSTRP,
     _TENKEY,
     _MOUSE,
-    _ARROW,
     _SYMBOL,
-    _EMPTY6,
-    _EMPTY7,
-    _SHIFTQWERTY,
-    _SHIFTYSTRP,
-    _LAYERS
+    _ARROW
 };
 
 enum custom_keycodes {
@@ -43,13 +38,8 @@ enum custom_keycodes {
   YSTRP,
   TENKEY,
   MOUSE,
-  ARROW,
   SYMBOL,
-  EMPTY6,
-  EMPTY7,
-  SHIFTQWERTY,
-  SHIFTYSTRP,
-  LAYERS,
+  ARROW,
   BACKLIT,
   EISU,
   KANA,
@@ -117,13 +107,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case YSTRP:if (record->event.pressed) {persistent_default_layer_set(1UL<<_YSTRP);}return false;break;
     case TENKEY:if (record->event.pressed) {persistent_default_layer_set(1UL<<_TENKEY);}return false;break;
     case MOUSE:if (record->event.pressed) {persistent_default_layer_set(1UL<<_MOUSE);}return false;break;
-    case ARROW:if (record->event.pressed) {persistent_default_layer_set(1UL<<_ARROW);}return false;break;
     case SYMBOL:if (record->event.pressed) {persistent_default_layer_set(1UL<<_SYMBOL);}return false;break;
-    case EMPTY6:if (record->event.pressed) {persistent_default_layer_set(1UL<<_EMPTY6);}return false;break;
-    case EMPTY7:if (record->event.pressed) {persistent_default_layer_set(1UL<<_EMPTY7);}return false;break;
-    case SHIFTQWERTY:if (record->event.pressed) {persistent_default_layer_set(1UL<<_SHIFTQWERTY);}return false;break;
-    case SHIFTYSTRP:if (record->event.pressed) {persistent_default_layer_set(1UL<<_SHIFTYSTRP);}return false;break;
-    case LAYERS:if (record->event.pressed) {persistent_default_layer_set(1UL<<_LAYERS);}return false;break;
+    case ARROW:if (record->event.pressed) {persistent_default_layer_set(1UL<<_ARROW);}return false;break;
     //case :if (record->event.pressed) {persistent_default_layer_set(1UL<<_);}return false;break;
     /*
     case LOWER:
@@ -290,18 +275,18 @@ void matrix_update(struct CharacterMatrix *dest,
 #define L_RAISE (1<<_RAISE)
 #define L_ADJUST (1<<_ADJUST)
 #define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
-*/
-#define L_QWERTY (1<<_QWERTY)
-#define L_YSTRP (1<<_YSTRP)
-#define L_TENKEY (1<<_TENKEY)
-#define L_MOUSE (1<<_MOUSE)
-#define L_ARROW (1<<_ARROW)
-#define L_SYMBOL (1<<_SYMBOL)
 #define L_EMPTY6 (1<<_EMPTY6)
 #define L_EMPTY7 (1<<_EMPTY7)
 #define L_SHIFTQWERTY (1<<_SHIFTQWERTY)
 #define L_SHIFTYSTRP (1<<_SHIFTYSTRP)
 #define L_LAYERS (1<<_LAYERS)
+*/
+#define L_QWERTY (1<<_QWERTY)
+#define L_YSTRP (1<<_YSTRP)
+#define L_TENKEY (1<<_TENKEY)
+#define L_MOUSE (1<<_MOUSE)
+#define L_SYMBOL (1<<_SYMBOL)
+#define L_ARROW (1<<_ARROW)
 
 static void render_logo(struct CharacterMatrix *matrix) {
 
@@ -341,19 +326,19 @@ static void render_layer_status(struct CharacterMatrix *matrix) {
            matrix_write_P(matrix, PSTR("Default"));
            break;
 
-case L_QWERTY:matrix_write_P(matrix, PSTR("Qqwerty"));break;
-case L_YSTRP:matrix_write_P(matrix, PSTR("Ystrp"));break;
-case L_TENKEY:matrix_write_P(matrix, PSTR("Tenkey"));break;
-case L_MOUSE:matrix_write_P(matrix, PSTR("Mouse"));break;
-case L_ARROW:matrix_write_P(matrix, PSTR("Arrow"));break;
-case L_SYMBOL:matrix_write_P(matrix, PSTR("Symbol"));break;
+case L_QWERTY:	matrix_write_P(matrix, PSTR("Qqwerty"));break;
+case L_YSTRP:	matrix_write_P(matrix, PSTR("Ystrp"));break;
+case L_TENKEY:	matrix_write_P(matrix, PSTR("Tenkey"));break;
+case L_MOUSE:	matrix_write_P(matrix, PSTR("Mouse"));break;
+case L_SYMBOL:	matrix_write_P(matrix, PSTR("Symbol"));break;
+case L_ARROW:	matrix_write_P(matrix, PSTR("Arrow"));break;
+
+        /*
 case L_EMPTY6:matrix_write_P(matrix, PSTR("Empty6"));break;
 case L_EMPTY7:matrix_write_P(matrix, PSTR("Empty7"));break;
 case L_SHIFTQWERTY:matrix_write_P(matrix, PSTR("S.Qqwerty"));break;
 case L_SHIFTYSTRP:matrix_write_P(matrix, PSTR("S.Ystrp"));break;
 case L_LAYERS:matrix_write_P(matrix, PSTR("Layers"));break;
-
-        /*
         case L_RAISE:
            matrix_write_P(matrix, PSTR("Raise"));
            break;
