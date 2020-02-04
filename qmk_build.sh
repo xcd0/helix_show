@@ -2,6 +2,7 @@
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 cd $SCRIPT_DIR
+
 dir=`find . -maxdepth 1 -type d -not -name '.*'`
 #echo $dir
 
