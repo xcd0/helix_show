@@ -7,13 +7,6 @@ all: build
 build:
 	go build
 
-run: build
-	./helix_show ./yj/yj.json
-	mv ./yj/yj.h ./yj/5.h
-
-qmk:run
-	bash qmk_build.sh
-
 release:
 	rm -rf $(DST) && mkdir -p $(DST)
 	# for windows
@@ -28,3 +21,4 @@ release:
 	# for freeBSD
 	GOARCH=$(GOARCH) GOOS=freebsd go build -o $(DST)/$(BIN)_freeBSD $(FLAGS)
 	cd $(DST) && mv $(BIN)_freeBSD $(BIN) && zip $(BIN)_binary_$(GOARCH)_freeBSD.zip $(BIN) && mv $(BIN) $(BIN)_freeBSD && rm $(BIN)_freeBSD
+
