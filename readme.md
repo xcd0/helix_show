@@ -6,6 +6,15 @@ helixキーボード向けにつくったキーマップのヘッダーファイ
 キーマップのヘッダーファイルとして出力します。  
 QMK configuratorについては https://bit-trade-one.co.jp/selfmadekb/softwaremanual/ が詳しいです。
 
+## インストール
+
+golang のコンパイラがインストールされている場合
+
+	go get github.com/xcd0/helix_show
+
+でインストールできます。
+そうでない場合はreleaseからDLして下さい。
+
 ## 使い方
 
 [release](https://github.com/xcd0/helix_show/releases)にバイナリがあるので落として使ってください。  
