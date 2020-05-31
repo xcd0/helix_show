@@ -6,6 +6,15 @@ helixキーボード向けにつくったキーマップのヘッダーファイ
 キーマップのヘッダーファイルとして出力します。  
 QMK configuratorについては https://bit-trade-one.co.jp/selfmadekb/softwaremanual/ が詳しいです。
 
+## インストール
+
+golang のコンパイラがインストールされている場合
+
+	go get github.com/xcd0/helix_show
+
+でインストールできます。
+そうでない場合はreleaseからDLして下さい。
+
 ## 使い方
 
 [release](https://github.com/xcd0/helix_show/releases)にバイナリがあるので落として使ってください。  
@@ -13,10 +22,46 @@ QMK configuratorについては https://bit-trade-one.co.jp/selfmadekb/softwarem
 引数をひとつ取ります。  
 入力として受け取るファイルの拡張子で2つ(.h,.json)に処理が分岐します。
 
+1. 入力ファイルの拡張子が`.json`  
+
+[QMK configurator](https://config.qmk.fm/#/helix/LAYOUT)で生成したJSONファイルからヘッダーファイルを生成します。  
+このヘッダーファイルには下の機能で生成される、いいかんじに見やすいコメントが含まれます。
+
+	ex ) $ ./helix_show.exe keymap.json
+
+1. 入力ファイルの拡張子が`.h`  
+最初に実装したもの。  
+ヘッダーファイルからいいかんじにみやすいコメントを生成します。  
+入力ファイルにコメントなど不要なものが記述されていると正しく動作しないかもしれないので、  
+推奨はしません。  
+
+	ex ) $ ./helix_show.exe keymap.h
+
+### おまけ
+
+使い方の例として、別リポジトリ[xcd0/qmk](https://github.com/xcd0/qmk)に私の自作キーマップ置き場があります。  
+ここでhelix_showを使用しています。  
+より正確にはmakefileから呼びだされるシェルスクリプト内から呼んでいます。  
+
+## 詳細
+
+### jsonの場合
+
+拡張機能としてQMK configratorで生成した.jsonファイルも使用できます。  
+生成した.jsonのファイルを第一引数に渡します。拡張子は`.json`に限ります。  
+
+	./helix_show keymap.json
+
+とすると、同じディレクトリに与えたファイルと同じ名前でヘッダーファイルが生成されます。  
+
+	./helix_show keymap.json; mv keymap.h 5.h
+
+のようにすれば一気にコメント付きで出力できます。
+
 ### ヘッダーファイルの場合
 
 keymap.cからキーマップの定義の部分だけ別ファイルとしてインクルードするように  
-keymap.cを書き換えます。私の場合、`5.h`としました。  
+keymap.cを書き換えます。私の場合、5行用のキーマップの為、`5.h`としました。  
 インクルードするようにしたヘッダーファイルにキーマップを書きます。  
 
 	#if HELIX_ROWS == 5
@@ -24,7 +69,8 @@ keymap.cを書き換えます。私の場合、`5.h`としました。
 	#else
 
 keymap.cから取り出したキーマップを別ファイルに保存します。  
-これを入力とします。私の場合、`5.h`としました。  
+もちろん編集しても構いません。  
+これを入力とします。  
 
 	const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		[0] = LAYOUT(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_EQL, KC_ENT, TO(8), KC_Z, KC_X, KC_C, KC_V, KC_B, TG(3), TG(3), KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, TO(8), KC_LALT, RESET, TO(10), KC_LGUI, KC_LANG2, KC_SPC, TG(4), TG(5), KC_SPC, KC_LANG1, KC_RGUI, TG(2), DF(1), DF(0)),
@@ -41,51 +87,53 @@ keymap.cから取り出したキーマップを別ファイルに保存します
 	};
 
 この状態でビルドが正常に通るなら正しく設定できています。  
-この5.hを本プログラムに第一引数として渡します。拡張子は`.h`に限ります。
-これで標準出力に成形されたキーマップが表示されます。
-注意として<font color="red">入力とするヘッダーファイルはコメントに対応していません。</font>  
+この5.hを本プログラムに第一引数として渡します。拡張子は`.h`に限ります。  
+これで標準出力に成形されたキーマップが表示されます。  
+
+注意として<b><font color="red">入力とするヘッダーファイルはコメントに対応していません。</font></b>  
 入っているとエラーになります。  
 
-	$ ./helix_show.exe yj3/5.h  
+	$ ./helix_show.exe yj/5.h  
 	const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-		/*
-			layer 0
-			+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+
-			|   Esc   |    1    |    2    |    3    |    4    |    5    |                   |    6    |    7    |    8    |    9    |    0    | Delete  |
-			|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-			|   Tab   |    q    |    w    |    e    |    r    |    t    |                   |    y    |    u    |    i    |    o    |    p    |   Bk    |
-			|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
-			|  LCtrl  |    a    |    s    |    d    |    f    |    g    |                   |    h    |    j    |    k    |    l    |  =  +   |  Enter  |
-			|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-			|  TO.8   |    z    |    x    |    c    |    v    |    b    |  TG.3   |  TG.3   |    n    |    m    |  ,  <   |  .  >   |  /  ?   |  TO.8   |
-			|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-			|  LAlt   |  Reset  |  TO.15  |  LGUI   |  Eisu   |   Spc   |  TG.4   |  TG.5   |   Spc   |  Kana   |  RGUI   |  TG.2   |  DF.1   |  DF.0   |
-			+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
-		*/
-		[0] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSPC,KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,K
-	C_K,KC_L,KC_EQL,KC_ENT,TO(8,KC_Z,KC_X,KC_C,KC_V,KC_B,TG(3,TG(3,KC_N,KC_M,KC_COMM,KC_DOT,KC_SLSH,TO(8,KC_LALT,RESET,TO(15,KC_LGUI,KC_LANG2,KC_SPC,TG(4,TG(5,KC_SPC,KC_LANG1,KC_RGUI,TG(2,DF(1,D
-	F(0,),
+	/*
+		layer 0
+		+---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------+
+		|   Esc   |    1    |    2    |    3    |    4    |    5    |                   |    6    |    7    |    8    |    9    |    0    | Delete  |
+		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
+		|   Tab   |    q    |    w    |    e    |    r    |    t    |                   |    y    |    u    |    i    |    o    |    p    |   Bk    |
+		|---------+---------+---------+---------+---------+---------+         +         +---------+---------+---------+---------+---------+---------|
+		|  Ct.:   |    a    |    s    |    d    |    f    |    g    |                   |    h    |    j    |    k    |    l    |  ;  :   |  Enter  |
+		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+		|  St.@   |    z    |    x    |    c    |    v    |    b    | LT5,--- | LT6,--- |    n    |    m    |    ,    |    .    |    /    | St.\  | |
+		|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
+		| At.---  |  DF.1   |  LGUI   |   ---   | LT2,--- |   Spc   |LT3,MuHen|LT4,HenKan|   Spc   |   ---   |  Left   |  Down   |   Up    |  Right  |
+		+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+
+	*/
+	[0] = LAYOUT(KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_DEL,KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSPC,LCTL_T(JP_COLN),KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_ENT,LSFT_T(JP_AT),KC_Z,KC_X,KC_C,KC_V,KC_B,LT(5,KC_NO),LT(6,KC_NO),KC_N,KC_M,JP_COMM,JP_DOT,JP_SLSH,RSFT_T(KC_JYEN),LALT_T(KC_NO),DF(1),KC_LGUI,KC_NO,LT(2,KC_NO),KC_SPC,LT(3,KC_MHEN),LT(4,KC_HENK),KC_SPC,KC_NO,KC_LEFT,KC_DOWN,KC_UP,KC_RGHT),
 
 		/*
 			layer 1
+	
 	(以降省略)
-	*/
 
 Cのコメント形式にしているのでそのまま標準出力をヘッダーとして出力するのもいいと思います。
 
 	./helix_show 5.h >> 5.h
 
-### jsonの場合
+## FAQ
 
-拡張機能としてQMK configratorで生成した.jsonファイルも使用できます。  
-生成した.jsonのファイルを第一引数に渡します。拡張子は`.json`に限ります。  
+1. キーコードの表示を変えたい。
+	* `key.go` を編集してビルドして使ってください。  
+	中身は2つのmapを定義しているだけなのでgolangがわからなくても何ら問題ないと思われます。
+	* ビルドはgolangのコンパイラが必要です。  
+	手っ取り早く用意するには拙作の[go_compiler_install](https://github.com/xcd0/go_compiler_install)があります。
+	恐らくこれが最速です。  
 
-	./helix_show keymap.json
+	```
+	wget https://raw.githubusercontent.com/xcd0/go_compiler_install/master/go_compiler_install.sh
+	./go_compiler_install.sh -v go1.13.7 -d $HOME/work/go -f -p
+	```
+	この2行でインストールが終わります。詳しくはリポジトリのreadme.mdを呼んでください。
 
-とすると、同じディレクトリに与えたファイルと同じ名前でヘッダーファイルが生成されます。  
-
-	./helix_show keymap.json; mv keymap.h 5.h
-
-のようにすれば一気にコメント付きで出力できます。
 
 
